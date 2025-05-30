@@ -1,14 +1,19 @@
 {
-  "experimentalFeaturesEnabled": {
-    "extensibility": true,
-    "localDeploy": true
-  },
-  "cloud": {
-    "credentialPrecedence": ["Environment", "AzureCLI", "VisualStudioCode", "AzurePowerShell"],
-    "currentProfile": "AzureCloud"
-  },
-  "extensions": {
-    "azuredevops": "br:acrbicepplayground.azurecr.io/extensions/azuredevops:0.0.3"
-  },
-  "implicitExtensions": []
+	"experimentalFeaturesEnabled": {
+		"extensibility": true,
+		"localDeploy": true
+	},
+	"cloud": {
+		"credentialPrecedence": [
+			"Environment",
+			"AzureCLI",
+			"VisualStudioCode",
+			"AzurePowerShell"
+		],
+		"currentProfile": "AzureCloud"
+	},
+	"extensions": {
+		"azuredevops": "br:acrbicepplayground.azurecr.io/extensions/azuredevops:0.0.6"
+	},
+	"implicitExtensions": []
 }

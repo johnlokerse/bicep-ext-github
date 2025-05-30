@@ -14,7 +14,37 @@ public static class RequestHelper
 {
     public static async Task<LocalExtensibilityOperationResponse> HandleRequest(JsonObject? config, string organization, Func<ServiceEndpointHttpClient, Task<LocalExtensibilityOperationResponse>> onExecuteFunc)
     {
-        var personalAccessToken = config!["personalAccessToken"]!.GetValue<string>();
+        if (config == null)
+        {
+            return CreateErrorResponse("InvalidConfiguration", "Extension configuration is null. Please ensure the 'extension azuredevops with { personalAccessToken: ... }' block is properly configured.");
+        }
+
+        if (!config.ContainsKey("personalAccessToken"))
+        {
+            return CreateErrorResponse("InvalidConfiguration", "Personal access token is missing from configuration. Please ensure 'personalAccessToken' is provided in the extension configuration block.");
+        }
+
+        var personalAccessTokenNode = config["personalAccessToken"];
+        if (personalAccessTokenNode == null)
+        {
+            return CreateErrorResponse("InvalidConfiguration", "Personal access token value is null. Please provide a valid personal access token.");
+        }
+
+        string personalAccessToken;
+        try
+        {
+            personalAccessToken = personalAccessTokenNode.GetValue<string>();
+        }
+        catch (Exception ex)
+        {
+            return CreateErrorResponse("InvalidConfiguration", $"Failed to read personal access token: {ex.Message}");
+        }
+
+        if (string.IsNullOrEmpty(personalAccessToken))
+        {
+            return CreateErrorResponse("InvalidConfiguration", "Personal access token cannot be empty. Please provide a valid personal access token.");
+        }
+
         var credentials = new VssBasicCredential(string.Empty, personalAccessToken);
         var organizationUrl = new Uri($"https://dev.azure.com/{organization}");
 
