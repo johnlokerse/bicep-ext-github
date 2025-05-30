@@ -32,30 +32,45 @@ public class ServiceConnectionResourceHandler : IResourceHandler
     {
         var properties = RequestHelper.GetProperties<Types.AzureDevOps.Models.ServiceConnection>(request.Properties);
 
+        // Try to get PAT from config, but fallback to properties.PersonalAccessToken if config is null
+        string? pat = null;
+        if (request.Config != null && request.Config.TryGetPropertyValue("personalAccessToken", out var patNode))
+        {
+            pat = patNode?.GetValue<string>();
+        }
+        if (string.IsNullOrEmpty(pat) && !string.IsNullOrEmpty(properties.PersonalAccessToken))
+        {
+            pat = properties.PersonalAccessToken;
+        }
+
         if (string.IsNullOrEmpty(properties.Organization))
         {
             return Task.FromResult(RequestHelper.CreateErrorResponse("InvalidConfiguration", "Organization is required"));
         }
+        if (string.IsNullOrEmpty(pat))
+        {
+            return Task.FromResult(RequestHelper.CreateErrorResponse("InvalidConfiguration", "Personal access token is required for authentication."));
+        }
 
-        return RequestHelper.HandleRequest(request.Config, properties.Organization, async client =>
+        // Build a config object to pass to RequestHelper
+        var config = new System.Text.Json.Nodes.JsonObject
+        {
+            ["personalAccessToken"] = pat
+        };
+
+        return RequestHelper.HandleRequest(config, properties.Organization, async client =>
         {
             if (isPreview)
             {
-                // For preview, just validate the configuration and return success
                 await Task.Yield();
                 return RequestHelper.CreateSuccessResponse(request, properties, new Identifiers(properties.Organization, properties.Name));
             }
 
-            // Create the service endpoint
             var serviceEndpoint = CreateServiceEndpointFromProperties(properties);
-
             try
             {
                 var createdEndpoint = await client.CreateServiceEndpointAsync(serviceEndpoint, properties.ProjectId);
-
-                // Update properties with values from the created endpoint
                 properties.Name = createdEndpoint.Name;
-
                 return RequestHelper.CreateSuccessResponse(request, properties, new Identifiers(properties.Organization, properties.Name));
             }
             catch (Exception ex)
@@ -164,8 +179,18 @@ public class ServiceConnectionResourceHandler : IResourceHandler
             }
         }
 
-        // Set up project references
-        // Note: Project references will be configured separately if needed
+        // Set up project references if projectId and projectName are provided
+        if (!string.IsNullOrEmpty(properties.ProjectId) && !string.IsNullOrEmpty(properties.ProjectName))
+        {
+            endpoint.ProjectReferences = new List<ProjectReference>
+            {
+                new ProjectReference
+                {
+                    Id = properties.ProjectId,
+                    Name = properties.ProjectName
+                }
+            };
+        }
 
         return endpoint;
     }

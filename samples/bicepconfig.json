@@ -13,7 +13,7 @@
 		"currentProfile": "AzureCloud"
 	},
 	"extensions": {
-		"azuredevops": "br:acrbicepplayground.azurecr.io/extensions/azuredevops:0.0.6"
+		"azuredevops": "br:acrbicepplayground.azurecr.io/extensions/azuredevops:0.0.9"
 	},
 	"implicitExtensions": []
 }

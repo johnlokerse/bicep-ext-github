@@ -14,6 +14,10 @@ public static class RequestHelper
 {
     public static async Task<LocalExtensibilityOperationResponse> HandleRequest(JsonObject? config, string organization, Func<ServiceEndpointHttpClient, Task<LocalExtensibilityOperationResponse>> onExecuteFunc)
     {
+        // Debug logging
+        Console.WriteLine($"DEBUG: HandleRequest called with config: {(config == null ? "NULL" : config.ToString())}");
+        Console.WriteLine($"DEBUG: Organization: {organization}");
+
         if (config == null)
         {
             return CreateErrorResponse("InvalidConfiguration", "Extension configuration is null. Please ensure the 'extension azuredevops with { personalAccessToken: ... }' block is properly configured.");
@@ -21,7 +25,7 @@ public static class RequestHelper
 
         if (!config.ContainsKey("personalAccessToken"))
         {
-            return CreateErrorResponse("InvalidConfiguration", "Personal access token is missing from configuration. Please ensure 'personalAccessToken' is provided in the extension configuration block.");
+            return CreateErrorResponse("InvalidConfiguration", $"Personal access token is missing from configuration. Available keys: [{string.Join(", ", config.Select(kvp => kvp.Key))}]. Please ensure 'personalAccessToken' is provided in the extension configuration block.");
         }
 
         var personalAccessTokenNode = config["personalAccessToken"];
@@ -42,7 +46,7 @@ public static class RequestHelper
 
         if (string.IsNullOrEmpty(personalAccessToken))
         {
-            return CreateErrorResponse("InvalidConfiguration", "Personal access token cannot be empty. Please provide a valid personal access token.");
+            return CreateErrorResponse("InvalidConfiguration", "Personal access token cannot be empty. Please provide a valid personal access token in the 'extension azuredevops with { personalAccessToken: \"your-pat-here\" }' block.");
         }
 
         var credentials = new VssBasicCredential(string.Empty, personalAccessToken);
