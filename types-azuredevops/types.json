@@ -1,0 +1,319 @@
+[
+  {
+    "$type": "StringType",
+    "sensitive": true,
+    "minLength": null,
+    "maxLength": null,
+    "pattern": null
+  },
+  {
+    "$type": "ObjectType",
+    "name": "configuration",
+    "properties": {
+      "personalAccessToken": {
+        "type": {
+          "$ref": "#/0"
+        },
+        "flags": 1,
+        "description": "Azure DevOps Personal Access Token"
+      }
+    },
+    "additionalProperties": null,
+    "sensitive": null
+  },
+  {
+    "$type": "StringType",
+    "sensitive": null,
+    "minLength": null,
+    "maxLength": null,
+    "pattern": null
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "AzureRM"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "Generic"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "Kubernetes"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "DockerRegistry"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "GitHub"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "Azure"
+  },
+  {
+    "$type": "UnionType",
+    "elements": [
+      {
+        "$ref": "#/3"
+      },
+      {
+        "$ref": "#/4"
+      },
+      {
+        "$ref": "#/5"
+      },
+      {
+        "$ref": "#/6"
+      },
+      {
+        "$ref": "#/7"
+      },
+      {
+        "$ref": "#/8"
+      }
+    ]
+  },
+  {
+    "$type": "ObjectType",
+    "name": "Boolean",
+    "properties": {},
+    "additionalProperties": null,
+    "sensitive": null
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "ServicePrincipal"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "WorkloadIdentityFederation"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "UsernamePassword"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "OAuth"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "PersonalAccessToken"
+  },
+  {
+    "$type": "StringLiteralType",
+    "value": "Certificate"
+  },
+  {
+    "$type": "UnionType",
+    "elements": [
+      {
+        "$ref": "#/11"
+      },
+      {
+        "$ref": "#/12"
+      },
+      {
+        "$ref": "#/13"
+      },
+      {
+        "$ref": "#/14"
+      },
+      {
+        "$ref": "#/15"
+      },
+      {
+        "$ref": "#/16"
+      }
+    ]
+  },
+  {
+    "$type": "StringType",
+    "sensitive": true,
+    "minLength": null,
+    "maxLength": null,
+    "pattern": null
+  },
+  {
+    "$type": "StringType",
+    "sensitive": true,
+    "minLength": null,
+    "maxLength": null,
+    "pattern": null
+  },
+  {
+    "$type": "StringType",
+    "sensitive": true,
+    "minLength": null,
+    "maxLength": null,
+    "pattern": null
+  },
+  {
+    "$type": "StringType",
+    "sensitive": true,
+    "minLength": null,
+    "maxLength": null,
+    "pattern": null
+  },
+  {
+    "$type": "ObjectType",
+    "name": "ServiceConnection",
+    "properties": {
+      "organization": {
+        "type": {
+          "$ref": "#/2"
+        },
+        "flags": 17,
+        "description": "The Azure DevOps organization name"
+      },
+      "name": {
+        "type": {
+          "$ref": "#/2"
+        },
+        "flags": 17,
+        "description": "The service connection name"
+      },
+      "projectId": {
+        "type": {
+          "$ref": "#/2"
+        },
+        "flags": 1,
+        "description": "The project ID where the service connection will be created"
+      },
+      "projectName": {
+        "type": {
+          "$ref": "#/2"
+        },
+        "flags": 1,
+        "description": "The project name where the service connection will be created"
+      },
+      "type": {
+        "type": {
+          "$ref": "#/9"
+        },
+        "flags": 0,
+        "description": "The type of service connection"
+      },
+      "description": {
+        "type": {
+          "$ref": "#/2"
+        },
+        "flags": 0,
+        "description": "The service connection description"
+      },
+      "url": {
+        "type": {
+          "$ref": "#/2"
+        },
+        "flags": 0,
+        "description": "The URL of the service endpoint"
+      },
+      "isShared": {
+        "type": {
+          "$ref": "#/10"
+        },
+        "flags": 0,
+        "description": "Whether the service connection is shared with other projects"
+      },
+      "authorizationScheme": {
+        "type": {
+          "$ref": "#/17"
+        },
+        "flags": 0,
+        "description": "The authorization scheme"
+      },
+      "tenantId": {
+        "type": {
+          "$ref": "#/2"
+        },
+        "flags": 0,
+        "description": "The tenant ID for Azure service connections"
+      },
+      "servicePrincipalId": {
+        "type": {
+          "$ref": "#/2"
+        },
+        "flags": 0,
+        "description": "The service principal ID for Azure service connections"
+      },
+      "servicePrincipalKey": {
+        "type": {
+          "$ref": "#/18"
+        },
+        "flags": 0,
+        "description": "The service principal key for Azure service connections"
+      },
+      "subscriptionId": {
+        "type": {
+          "$ref": "#/2"
+        },
+        "flags": 0,
+        "description": "The subscription ID for Azure service connections"
+      },
+      "subscriptionName": {
+        "type": {
+          "$ref": "#/2"
+        },
+        "flags": 0,
+        "description": "The subscription name for Azure service connections"
+      },
+      "environment": {
+        "type": {
+          "$ref": "#/2"
+        },
+        "flags": 0,
+        "description": "The Azure environment (AzureCloud, AzureUSGovernment, etc.)"
+      },
+      "scopeLevel": {
+        "type": {
+          "$ref": "#/2"
+        },
+        "flags": 0,
+        "description": "The scope level (Subscription, ManagementGroup)"
+      },
+      "creationMode": {
+        "type": {
+          "$ref": "#/2"
+        },
+        "flags": 0,
+        "description": "The creation mode (Manual, Automatic)"
+      },
+      "username": {
+        "type": {
+          "$ref": "#/19"
+        },
+        "flags": 0,
+        "description": "Username for basic authentication"
+      },
+      "password": {
+        "type": {
+          "$ref": "#/20"
+        },
+        "flags": 0,
+        "description": "Password for basic authentication"
+      },
+      "personalAccessToken": {
+        "type": {
+          "$ref": "#/21"
+        },
+        "flags": 0,
+        "description": "Personal access token for token-based authentication"
+      }
+    },
+    "additionalProperties": null,
+    "sensitive": null
+  },
+  {
+    "$type": "ResourceType",
+    "name": "ServiceConnection",
+    "scopeType": 0,
+    "readOnlyScopes": null,
+    "body": {
+      "$ref": "#/22"
+    },
+    "flags": 0,
+    "functions": null
+  }
+]

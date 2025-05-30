@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>Bicep.Extension.AzureDevOps</RootNamespace>
+        <StartupObject>Bicep.Extension.AzureDevOps.Program</StartupObject>
+        <AssemblyName>bicep-ext-azuredevops</AssemblyName>
+        <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+        <PublishSingleFile>true</PublishSingleFile>
+        <InvariantGlobalization>true</InvariantGlobalization>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Azure.Bicep.Local.Extension" Version="0.35.1" />
+        <PackageReference Include="Azure.Bicep.Types" Version="0.5.81" />
+        <PackageReference Include="Microsoft.VisualStudio.Services.ServiceEndpoints.WebApi" Version="19.225.1" />
+        <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="19.225.1" />
+        <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="19.225.1" />
+        <PackageReference Include="Microsoft.TeamFoundation.DistributedTask.Common.Contracts" Version="19.225.1" />
+        <PackageReference Include="Grpc.AspNetCore" Version="2.63.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="../Bicep.Types.AzureDevOps/Bicep.Types.AzureDevOps.csproj" />
+    </ItemGroup>
+</Project>
