@@ -5,7 +5,7 @@ usage="Usage: ./publish.sh <target>"
 target=${1:?"Missing target. ${usage}"}
 
 root="$(dirname ${BASH_SOURCE[0]})/../src/Bicep.Extension.AzureDevOps"
-types_index="$(dirname ${BASH_SOURCE[0]})/../types/index.json"
+types_index="$(dirname ${BASH_SOURCE[0]})/../types-azuredevops/index.json"
 ext_name="bicep-ext-azuredevops"
 
 # build various flavors
